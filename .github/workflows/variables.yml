@@ -1,0 +1,17 @@
+name: Utilisation des Variables
+
+# Déclencheur : s'exécute à chaque push
+on: [push]
+
+jobs:
+  mon-job:
+    runs-on: ubuntu-latest
+
+    # Définition de la variable au niveau du job (accessible par toutes les étapes)
+    env:
+      PRENOM: "Alexandre"
+
+    steps:
+      - name: Salutations personnalisées
+        # Sous Linux (ubuntu-latest), on accède à la variable avec un $
+        run: echo "Bonjour $PRENOM, bienvenue dans le module ICT324 !"
