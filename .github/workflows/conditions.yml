@@ -1,0 +1,17 @@
+name: Workflow Conditionnel
+
+on: [push]
+
+jobs:
+  test-et-deploiement:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : S'exécute toujours lors d'un push
+      - name: Simulation de test
+        run: echo "Test OK"
+
+      # Étape 2 : Ne s'exécute QUE si la branche est 'main'
+      - name: Simulation de déploiement
+        if: github.ref == 'refs/heads/main'
+        run: echo "Déploiement en cours..."
