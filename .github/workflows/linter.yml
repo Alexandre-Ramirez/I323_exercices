@@ -1,0 +1,30 @@
+name: Lint Code Base
+
+# Déclencheur sur push et pull request
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Récupérer le code (indispensable !)
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # Super-Linter a besoin de l'historique complet pour comparer les fichiers
+          fetch-depth: 0
+
+      # Étape 2 : Exécuter Super-Linter
+      - name: Lint Code Base
+        uses: super-linter/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          # On active uniquement le linter pour JavaScript (ESLint)
+          VALIDATE_JAVASCRIPT_ES: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
